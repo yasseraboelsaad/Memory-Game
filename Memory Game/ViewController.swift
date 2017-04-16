@@ -10,13 +10,21 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var firstButton : String!
-    var secondButton: String!
+    var firstButtonText : String!
+    var secondButtonText: String!
+    var firstButtonTag : Int!
+    var secondButtonTag: Int!
     var buttonsCount: Int = 0
+    var Button : UIButton!
+    let array = ["😂","😒","😲","😱","😍","😭","😛","😔","😛","😍","😲","😭","😱","😔","😂","😒"]
+    @IBOutlet var buttonsArray: [UIButton]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        for button in buttonsArray{
+            button.setTitle("⁇", for: .normal)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,25 +32,32 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func buttonClicked(TheButton : UIButton!){
-        if buttonsCount == 0 {
+    @IBAction func buttonClicked(_ sender: UIButton) {
+        if buttonsCount==0 {
+            sender.setTitle(array[sender.tag], for: .normal)
+            firstButtonTag=sender.tag
+            Button=sender
+            firstButtonText=array[sender.tag]
             buttonsCount+=1
-            firstButton = TheButton.titleLabel!.text
-            print(TheButton.titleLabel!.text)
-        }else if buttonsCount == 1 {
-            secondButton = TheButton.titleLabel!.text
-            print(TheButton.titleLabel!.text)
-            if firstButton == secondButton {
-                print("Good job")
-            }else{
-                print("Try again")
+        }else if buttonsCount == 1{
+            sender.setTitle(array[sender.tag], for: .normal)
+            secondButtonTag=sender.tag
+            secondButtonText=array[sender.tag]
+            let when = DispatchTime.now() + 2 // change 2 to desired number of seconds
+            DispatchQueue.main.asyncAfter(deadline: when) {
+                // Your code with delay
+                if (self.firstButtonText == self.secondButtonText) && !(self.Button==sender) {
+                }else{
+                    self.buttonsArray[self.firstButtonTag].setTitle("⁇", for: .normal)
+                    self.buttonsArray[self.secondButtonTag].setTitle("⁇", for: .normal)
+                }
             }
-            firstButton=nil
-            secondButton=nil
+            
             buttonsCount=0
         }
         
     }
+    
 
 }
 
