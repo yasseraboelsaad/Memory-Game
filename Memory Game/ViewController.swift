@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     var buttonsCount: Int = 0
     var Button : UIButton!
     
-    let array = ["aceOfHearts","JackOfSpades","QueenOfHearts","kingOfHearts"
+    var array = ["aceOfHearts","JackOfSpades","QueenOfHearts","kingOfHearts"
                 ,"aceOfSpades","QueenOfSpades","JackOfHearts","kingOfSpades"
                 ,"JackOfHearts","aceOfSpades","QueenOfHearts","QueenOfSpades"
                 ,"kingOfHearts","kingOfSpades","aceOfHearts","JackOfSpades"]
@@ -27,6 +27,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        array.shuffle()
     }
 
     override func didReceiveMemoryWarning() {
@@ -95,6 +96,7 @@ class ViewController: UIViewController {
     
     func restartGame(){
         gameCounter=0
+        array.shuffle()
         for button in buttonsArray{
             UIView.transition(with: button, duration: 0.5, options: .transitionFlipFromLeft, animations: {
                 button.setImage(#imageLiteral(resourceName: "back"), for: .normal)
